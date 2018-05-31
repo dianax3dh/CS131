@@ -1,0 +1,14 @@
+The no-op KenKen solver will look at the board and consider the numbers 1 through N. 
+If the constraint is a big number, then it would make sense to test what the biggest number is that can be produced by the numbers 1 through N (likely using multiplication). The same goes for checking what the lowest possible number is that can be made from the numbers, that is not 1. 
+For example, in a 3x3, there are two squares that is to equal 1. What are two possible numbers out of the 4 possible operators, combined can be equal to 1. There are (3-2) and (2-1). It seems like subtraction is the only operator that can get the answer 1. Another example is having three squares that equals to 6. The possibilities are (1*2*3) or (1+2+3). Taking the number of squares that the constraint used and the answer it requires to be satisfied, with the possible numbers and operators, find the different equations there can be to get the answer. 
+The no-op KenKen solver will have an interface similar to KenKen from our homework, in which it will take in N, C, and T as its arguments. N is the number that tells us how big the board is, C is the constraints in which it tells use what the square(s) should equal to within however many square(s), and T is the board. The solver will go through the given constraints and try out the different possible combinations of numbers and operators on the board so that each row and column is unique to satisfy the rules of KenKen. If the call is successful, then it will return the correct N, C, and T like how the KenKen in our homework does. In an unsuccessful call it will say no. 
+Example test case for a 3x3 KenKen.
+noop_kenken_testcase(
+3, 
+[
+   (1, [1|1], [1|2]),
+   (0, [[1|3], [2|3], [3|3]]),
+   (18, [[2|1], [2|2], [3|1], [3|2]]), 	
+]
+). 
+T would be [[2,1,3],[1,3,2],[3,2,1]]. 
