@@ -1,0 +1,52 @@
+I solved the problem by have three functions: one main helper function and
+two more helper functions nested within the main helper function.
+
+parse_prefix takes the given grammar and separates it into the 
+LHS and RHS; the LHS is the starting symbol and the RHS is the production
+function calling the rules of the starting symbol. The matcher function that 
+parse_prefix calls takes in a starting symbol, the production function, the 
+RHS of the starting symbol's rules, an acceptor, empty list to save the 
+derivation, and the fragment. 
+
+When the matcher function takes in those arguments and calls the match_rhs 
+function. The match_rhs checks the RHS rules of the starting symbol; it first 
+takes the "first rule" of the RHS rules and calls match_rules. match_rules 
+goes through the passed in list of the rules and check if it is nonterminal 
+or terminal. If it is nonterminal, then take that value and pass it to 
+match_rhs to go through its rule; it is now the new starting symbol. It also 
+gets the prefix and suffix and calls it with an internal acceptor that was 
+introduced to me by a TA's discussion where we can use an internal acceptor 
+so we don't call the actual acceptor and have it return too soon. This goes 
+on until it hits a terminal.
+
+If it is a terminal, then it is checked against the fragment that was passed 
+in and if it matches then it continues on to check the rest of the fragment 
+elements. Else, it returns None. In the case of an empty list, it also returns
+None. The match_rules function will keep doing this until the list is empty, 
+which is when it will pass the derivation and suffix into the acceptor 
+function. 
+
+As the overall matcher function calls the other two helper functions nested
+within it, there is an empty list that is passed in at the beginning that 
+will hold/save the derivations in the list, hence the empty list that is
+passed in. 
+
+I did this approach, by gathering what I could from the different TA dicussions
+and by going to office hours. It made sense to overall, go through each rule 
+in the grammar and check each rules elements to see when it gets to the 
+terminal term and check that against the fragment. The two helper function from
+the "main" helper function, matcher in parse_prefix basically one function 
+(match_rhs),mchecks the rules from the production function, based on the 
+starting symbol and then the other (match_rules) checks each rules "elements"/
+rules. 
+
+There was a possible approach mentioned in discussion based on looking at the 
+tree diagrams of the derivations. I think it was mentioned that the tree was 
+split up into RHS and LHS and recursively check those two sides and then 
+combine them together somehow. I did not go with this approach, because I did
+not understand it and it did not really make sense to me. 
+
+I was trying to see if I could test what would happen if a nonterminal rule had
+a terminal that is an empty list and how that could be shown in the fragment 
+and what the derivation would look like, but I was unsure how to represent it 
+in the fragment. So, that might be a weakness in my solution. 
